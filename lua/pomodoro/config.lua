@@ -1,8 +1,22 @@
-local function merge_config(c1, c2)
-  local result = {}
-  result = vim.tbl_extend('force', result, c1)
-  result = vim.tbl_extend('force', result, c2)
-  return result
+local default_config = {
+  duration = 25,
+}
+
+Config = {
+  config = {},
+}
+
+function Config:new()
+  local o = {
+    config = default_config,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
 end
 
-return { merge_config = merge_config }
+function Config:merge_config(config)
+  self.config = vim.tbl_extend('force', self.config, config)
+end
+
+return Config

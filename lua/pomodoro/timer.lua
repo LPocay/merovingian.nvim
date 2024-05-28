@@ -1,9 +1,20 @@
-local function run_callback_with_timer(duration, callback)
-  local timer = vim.loop.new_timer()
-  timer:start(duration * 1000, 0, function()
+Timer = {
+  timer = nil,
+}
+
+function Timer:new(o)
+  o = o or {}
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function Timer:run_callback_with_timer(duration, callback)
+  self.timer = vim.loop.new_timer()
+  self.timer:start(duration * 1000, 0, function()
     callback()
-    timer:close()
+    self.timer:close()
   end)
 end
 
-return { run_callback_with_timer = run_callback_with_timer }
+return Timer
