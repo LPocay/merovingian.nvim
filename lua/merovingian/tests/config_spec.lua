@@ -1,4 +1,4 @@
-local Config = require("pomodoro.config")
+local Config = require("merovingian.config")
 
 describe("Configurations tests", function()
   it("If user provide config, Sould combine configs", function()
